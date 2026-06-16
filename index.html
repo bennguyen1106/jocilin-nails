@@ -1423,14 +1423,10 @@
 
   /* ── HERO PARALLAX ── */
   const heroContentEl = document.getElementById('hero-content');
-  const leafR = document.querySelector('.hero-leaf-r');
-  const leafL = document.querySelector('.hero-leaf-l');
   window.addEventListener('scroll', () => {
     const s = window.scrollY;
     if (s < window.innerHeight * 1.2) {
       if (heroContentEl) heroContentEl.style.transform = `translateY(${s * 0.22}px)`;
-      if (leafR) leafR.style.transform = `translateY(${s * 0.1}px)`;
-      if (leafL) leafL.style.transform = `translateY(${s * 0.07}px) scaleX(-1)`;
     }
   }, { passive: true });
 
@@ -1462,15 +1458,6 @@
     });
   }
 
-
-  /* ── GALLERY FILTER ── */
-  function filterGallery(tag, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.classList.toggle('hidden', tag !== 'all' && item.dataset.tag !== tag);
-    });
-  }
 
   /* ── REVIEWS ── */
   let selectedStars = 0;
@@ -1616,18 +1603,10 @@
   }
 
   loadReviews();
-
-
-
-
 </script>
 
 </body>
 </html>
-
-
-
-
 
 
 
