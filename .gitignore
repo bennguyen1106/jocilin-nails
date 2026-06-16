@@ -1,0 +1,9 @@
+# Admin panel — excluded to keep credentials out of version control
+admin-j7x2.html.html
+
+# Claude Code settings
+.claude/
+
+# Windows system files
+desktop.ini
+Thumbs.db
