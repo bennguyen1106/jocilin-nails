@@ -1561,7 +1561,8 @@
       const items = track.querySelectorAll('.car-item');
       if (!items.length) return;
       const itemW = items[0].offsetWidth + 24;
-      const active = Math.round(track.scrollLeft / itemW);
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      const active = atEnd ? items.length - 1 : Math.round(track.scrollLeft / itemW);
       document.querySelectorAll('.car-dot').forEach((d, i) => d.classList.toggle('active', i === active));
     }, { passive: true });
 
