@@ -748,9 +748,10 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       /* fixed backgrounds break on iOS Safari — on mobile, html carries the forest image
-         as a normal scroll background; sections apply only gradient overlays on top */
-      html { background-attachment: scroll; }
-      #about { background: url('images/light-top1.jpg') center top / cover no-repeat; }
+         anchored to the top so it stays clear; sections apply only gradient overlays */
+      html { background-attachment: scroll; background-position: top center; }
+      .hero { background-attachment: scroll; }
+      #about { background: url('images/light-top1.jpg') top center / cover no-repeat; }
       #gallery {
         background:
           linear-gradient(to bottom, rgba(244,237,228,1) 0%, rgba(244,237,228,1) 58%, rgba(244,237,228,.6) 76%, rgba(244,237,228,.2) 90%, transparent 100%),
@@ -1528,17 +1529,30 @@
   }
 
   /* ── MOBILE NAV ── */
+  let _navScrollY = 0;
+  function _lockScroll() {
+    _navScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${_navScrollY}px`;
+    document.body.style.width = '100%';
+  }
+  function _unlockScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, _navScrollY);
+  }
   function toggleMobileNav() {
     const nav = document.getElementById('mobile-nav');
     const btn = document.getElementById('nav-hamburger');
     nav.classList.toggle('open');
     btn.classList.toggle('open');
-    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+    nav.classList.contains('open') ? _lockScroll() : _unlockScroll();
   }
   function closeMobileNav() {
     document.getElementById('mobile-nav').classList.remove('open');
     document.getElementById('nav-hamburger').classList.remove('open');
-    document.body.style.overflow = '';
+    _unlockScroll();
   }
 
   /* ── FAQ ACCORDION ── */
