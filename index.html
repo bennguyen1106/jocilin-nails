@@ -747,11 +747,10 @@
       nav.scrolled { padding: .85rem 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      /* fixed backgrounds break on iOS Safari — on mobile, html carries the forest image
-         anchored to the top so it stays clear; sections apply only gradient overlays */
+      /* fixed backgrounds break on iOS Safari — html carries the single image anchored
+         to the top; hero and about strip their own backgrounds so both share it */
       html { background-attachment: scroll; background-position: top center; }
-      .hero { background-attachment: scroll; }
-      #about { background: url('images/light-top1.jpg') top center / cover no-repeat; }
+      .hero { background: none; }
       #gallery {
         background:
           linear-gradient(to bottom, rgba(244,237,228,1) 0%, rgba(244,237,228,1) 58%, rgba(244,237,228,.6) 76%, rgba(244,237,228,.2) 90%, transparent 100%),
