@@ -856,12 +856,12 @@
     /* light mode: sun is active (thumb on left), moon is inactive */
     .toggle-icon.icon-sun  { color: rgba(20,20,20,.9); }
     .toggle-icon.icon-moon { color: rgba(20,20,20,.35); }
-    /* dark mode: moon is active (thumb on right), sun is inactive */
-    [data-theme="dark"] .toggle-icon.icon-sun  { color: rgba(20,20,20,.35); }
+    /* dark mode: moon is active (thumb on right), sun is inactive — track is dark so inactive must be light */
+    [data-theme="dark"] .toggle-icon.icon-sun  { color: rgba(255,255,255,.45); }
     [data-theme="dark"] .toggle-icon.icon-moon { color: rgba(20,20,20,.9); }
     nav.scrolled .toggle-icon.icon-sun  { color: rgba(20,20,20,.85); }
     nav.scrolled .toggle-icon.icon-moon { color: rgba(20,20,20,.3); }
-    [data-theme="dark"] nav.scrolled .toggle-icon.icon-sun  { color: rgba(20,20,20,.3); }
+    [data-theme="dark"] nav.scrolled .toggle-icon.icon-sun  { color: rgba(255,255,255,.4); }
     [data-theme="dark"] nav.scrolled .toggle-icon.icon-moon { color: rgba(20,20,20,.85); }
     .toggle-thumb {
       position: absolute;
