@@ -833,8 +833,8 @@
     .toggle-track {
       position: relative;
       width: 52px; height: 26px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.28);
+      border: 1px solid rgba(255,255,255,.4);
       border-radius: 13px;
       display: flex; align-items: center;
       justify-content: space-between;
@@ -842,18 +842,18 @@
       box-sizing: border-box;
       transition: background .3s, border-color .3s;
     }
-    .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.38); }
+    .theme-toggle:hover .toggle-track { background: rgba(255,255,255,.4); }
     nav.scrolled .toggle-track {
-      background: rgba(0,0,0,.1);
-      border-color: rgba(0,0,0,.18);
+      background: rgba(0,0,0,.08);
+      border-color: rgba(0,0,0,.15);
     }
-    nav.scrolled .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.18); }
+    nav.scrolled .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.15); }
     .toggle-icon {
       width: 12px; height: 12px;
-      color: rgba(255,255,255,.9);
+      color: rgba(20,20,20,.8);
       position: relative; z-index: 2; flex-shrink: 0;
     }
-    nav.scrolled .toggle-icon { color: rgba(80,80,80,.75); }
+    nav.scrolled .toggle-icon { color: rgba(20,20,20,.7); }
     .toggle-thumb {
       position: absolute;
       width: 20px; height: 20px;
