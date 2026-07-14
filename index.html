@@ -747,17 +747,25 @@
       nav.scrolled { padding: .85rem 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      /* fixed backgrounds break on iOS Safari — hero and about each carry the image
-         with scroll, sized identically so they appear as one continuous background */
+      /* fixed backgrounds break on iOS Safari — html carries the single forest image;
+         body gradient is made transparent over hero+about so both share one bg;
+         about's ::before still applies its dark tint */
       html { background-attachment: scroll; background-position: top center; }
-      .hero {
-        background-attachment: scroll;
-        background-position: top center;
-        background-size: auto 100vh;
+      body {
+        background: linear-gradient(to bottom,
+          transparent            0%,
+          transparent           28%,
+          rgba(244,237,228,.6)  33%,
+          rgba(244,237,228,1.0) 40%,
+          rgba(244,237,228,1.0) 55%,
+          rgba(195,215,170,.95) 68%,
+          rgba(65,105,58,.60)   80%,
+          rgba(20,45,25,.28)    90%,
+          rgba(8,20,11,.05)    100%
+        );
       }
-      #about {
-        background: url('images/light-top1.jpg') center -100vh / auto 100vh scroll no-repeat;
-      }
+      .hero { background: none; }
+      #about { background: transparent; }
       #gallery {
         background:
           linear-gradient(to bottom, rgba(244,237,228,1) 0%, rgba(244,237,228,1) 58%, rgba(244,237,228,.6) 76%, rgba(244,237,228,.2) 90%, transparent 100%),
