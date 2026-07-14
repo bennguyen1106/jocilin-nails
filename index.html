@@ -827,16 +827,45 @@
     /* ── THEME TOGGLE BUTTON ── */
     .theme-toggle {
       background: none; border: none; cursor: pointer;
-      color: rgba(255,255,255,.65); padding: 6px; margin-left: .5rem;
-      display: flex; align-items: center; border-radius: 8px; flex-shrink: 0;
-      transition: color .2s;
+      padding: 0; margin-left: .75rem;
+      display: flex; align-items: center; flex-shrink: 0;
     }
-    .theme-toggle:hover { color: rgba(255,255,255,.95); }
-    nav.scrolled .theme-toggle { color: var(--mid); }
-    nav.scrolled .theme-toggle:hover { color: var(--dark); }
-    .theme-toggle .icon-sun { display: none; }
-    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    .toggle-track {
+      position: relative;
+      width: 52px; height: 26px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 13px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 6px;
+      box-sizing: border-box;
+      transition: background .3s, border-color .3s;
+    }
+    .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.38); }
+    nav.scrolled .toggle-track {
+      background: rgba(0,0,0,.1);
+      border-color: rgba(0,0,0,.18);
+    }
+    nav.scrolled .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.18); }
+    .toggle-icon {
+      width: 12px; height: 12px;
+      color: rgba(255,255,255,.9);
+      position: relative; z-index: 2; flex-shrink: 0;
+    }
+    nav.scrolled .toggle-icon { color: rgba(80,80,80,.75); }
+    .toggle-thumb {
+      position: absolute;
+      width: 20px; height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px; left: 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.3);
+      transition: transform .25s cubic-bezier(.4,0,.2,1);
+      z-index: 1;
+      pointer-events: none;
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(26px); }
 
     /* ── DARK MODE ── */
     /* only the cream sections go dark — background images are untouched */
@@ -875,8 +904,15 @@
     [data-theme="dark"] nav.scrolled .nav-links a:hover { color: rgba(244,237,228,.95); }
     [data-theme="dark"] nav.scrolled .nav-links a.nav-active { color: var(--green-lt); }
     [data-theme="dark"] nav.scrolled .nav-links a.nav-book { color: #fff; }
-    [data-theme="dark"] nav.scrolled .theme-toggle { color: rgba(210,200,180,.7); }
-    [data-theme="dark"] nav.scrolled .theme-toggle:hover { color: rgba(244,237,228,.95); }
+    [data-theme="dark"] .toggle-track {
+      background: rgba(0,0,0,.35);
+      border-color: rgba(255,255,255,.15);
+    }
+    [data-theme="dark"] nav.scrolled .toggle-track {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.15);
+    }
+    [data-theme="dark"] nav.scrolled .toggle-icon { color: rgba(210,200,180,.75); }
     [data-theme="dark"] .review-form-wrap {
       background: rgba(12,22,12,.75);
       border-color: rgba(220,210,185,.15);
@@ -927,8 +963,11 @@
     <li><a onclick="scrollToSection('booking')" class="nav-book">Book Now</a></li>
   </ul>
   <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-    <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <div class="toggle-track">
+      <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <div class="toggle-thumb"></div>
+      <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </div>
   </button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open menu">
     <span></span><span></span><span></span>
