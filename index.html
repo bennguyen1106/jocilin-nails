@@ -850,10 +850,19 @@
     nav.scrolled .theme-toggle:hover .toggle-track { background: rgba(0,0,0,.15); }
     .toggle-icon {
       width: 12px; height: 12px;
-      color: rgba(20,20,20,.8);
       position: relative; z-index: 2; flex-shrink: 0;
+      transition: color .25s;
     }
-    nav.scrolled .toggle-icon { color: rgba(20,20,20,.7); }
+    /* light mode: sun is active (thumb on left), moon is inactive */
+    .toggle-icon.icon-sun  { color: rgba(20,20,20,.9); }
+    .toggle-icon.icon-moon { color: rgba(20,20,20,.35); }
+    /* dark mode: moon is active (thumb on right), sun is inactive */
+    [data-theme="dark"] .toggle-icon.icon-sun  { color: rgba(20,20,20,.35); }
+    [data-theme="dark"] .toggle-icon.icon-moon { color: rgba(20,20,20,.9); }
+    nav.scrolled .toggle-icon.icon-sun  { color: rgba(20,20,20,.85); }
+    nav.scrolled .toggle-icon.icon-moon { color: rgba(20,20,20,.3); }
+    [data-theme="dark"] nav.scrolled .toggle-icon.icon-sun  { color: rgba(20,20,20,.3); }
+    [data-theme="dark"] nav.scrolled .toggle-icon.icon-moon { color: rgba(20,20,20,.85); }
     .toggle-thumb {
       position: absolute;
       width: 20px; height: 20px;
@@ -912,7 +921,6 @@
       background: rgba(255,255,255,.1);
       border-color: rgba(255,255,255,.15);
     }
-    [data-theme="dark"] nav.scrolled .toggle-icon { color: rgba(210,200,180,.75); }
     [data-theme="dark"] .review-form-wrap {
       background: rgba(12,22,12,.75);
       border-color: rgba(220,210,185,.15);
@@ -964,9 +972,9 @@
   </ul>
   <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
     <div class="toggle-track">
-      <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="toggle-icon icon-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       <div class="toggle-thumb"></div>
-      <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="toggle-icon icon-moon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </div>
   </button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open menu">
