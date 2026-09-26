@@ -135,6 +135,11 @@
       .ld-mushroom-bounce, .ld-mushroom, .ld-shadow, .ld-logo { animation: none; }
     }
 
+    /* mobile-only helpers — hidden/neutral on desktop */
+    #site-bg { display: none; }
+    #hero-about-wrap { display: contents; }
+    #hero-about-bg { display: none; }
+
     /* ── ABOUT ── */
     #about {
       background: url('images/light-top1.jpg') center center / cover fixed no-repeat;
@@ -667,7 +672,7 @@
       overflow: hidden; max-height: 0;
       transition: max-height .5s cubic-bezier(.22,1,.36,1);
     }
-    .faq-item.open .faq-a { max-height: 600px; }
+    .faq-item.open .faq-a { max-height: 1000px; }
     .faq-a-inner {
       padding: 0 2rem 1.8rem 0;
       font-size: 14px; color: var(--mid); line-height: 1.85; font-weight: 300;
@@ -747,25 +752,43 @@
       nav.scrolled { padding: .85rem 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      /* fixed backgrounds break on iOS Safari — html carries the single forest image;
-         body gradient is made transparent over hero+about so both share one bg;
-         about's ::before still applies its dark tint */
-      html { background-attachment: scroll; background-position: top center; }
-      body {
-        background: linear-gradient(to bottom,
-          transparent            0%,
-          transparent           28%,
-          rgba(244,237,228,.6)  33%,
-          rgba(244,237,228,1.0) 40%,
-          rgba(244,237,228,1.0) 55%,
-          rgba(195,215,170,.95) 68%,
-          rgba(65,105,58,.60)   80%,
-          rgba(20,45,25,.28)    90%,
-          rgba(8,20,11,.05)    100%
-        );
+      html { background: #0c1e11; }
+      /* site-bg provides the image behind reviews + payment */
+      #site-bg {
+        display: block;
+        position: fixed; inset: 0; z-index: -1;
+        background: url('images/light-top1.jpg') center center / cover no-repeat;
+        pointer-events: none;
       }
+      /* position:fixed makes the bg viewport-locked (no JS needed, no jank).
+         iOS Safari clips fixed children when the parent has overflow:hidden,
+         so the image only shows within the hero+about wrapper. */
+      #hero-about-wrap {
+        display: block;
+        position: relative;
+        clip-path: inset(0);
+        z-index: 0;
+      }
+      #hero-about-bg {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100svh;
+        background: url('images/light-top1.jpg') center center / cover no-repeat;
+        pointer-events: none;
+      }
+      body { background: transparent; }
       .hero { background: none; }
       #about { background: transparent; }
+      #about::before { display: block; background: rgba(5,12,5,.42); }
+      /* cream sections outside the wrapper need explicit mobile backgrounds
+         so site-bg doesn't bleed through */
+      #pricing, #faq { background: rgba(244,237,228,1.0); }
+      [data-theme="dark"] #pricing,
+      [data-theme="dark"] #faq { background: rgba(12,26,12,1.0); }
       #gallery {
         background:
           linear-gradient(to bottom, rgba(244,237,228,1) 0%, rgba(244,237,228,1) 58%, rgba(244,237,228,.6) 76%, rgba(244,237,228,.2) 90%, transparent 100%),
@@ -773,6 +796,8 @@
       }
       #reviews { background: linear-gradient(to bottom, rgba(5,12,5,.38) 0%, rgba(5,12,5,.58) 100%); }
       #payment { background: rgba(5,12,5,.52); }
+      /* disable entrance animations on mobile — prevents zoom/slide jank during scroll */
+      [data-anim] { opacity: 1; transform: none; transition: none; }
     }
     @media (max-width: 600px) {
       section { padding: 5rem 1.4rem 4rem; }
@@ -996,6 +1021,7 @@
   </style>
 </head>
 <body>
+<div id="site-bg" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -1062,6 +1088,9 @@
   <div class="lightbox-hint">tap anywhere to close</div>
 </div>
 
+<!-- HERO + ABOUT share one background on mobile via wrapper -->
+<div id="hero-about-wrap">
+<div id="hero-about-bg" aria-hidden="true"></div>
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content" id="hero-content">
@@ -1113,6 +1142,7 @@
     </div>
   </div>
 </section>
+</div><!-- end #hero-about-wrap -->
 
 
 <!-- PRICING -->
@@ -1298,6 +1328,30 @@
             <span class="faq-icon"></span>
           </button>
           <div class="faq-a"><div class="faq-a-inner">While it is very helpful to send inspo to me through Instagram (@jociknguyen), it is not a requirement. However, what you want does need to be determined before you come to the appointment, whether I see the inspo or not.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What is the deposit system?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Starting Aug. 24th I will be implementing a deposit required system. This entails $10 being paid upfront when you book. (Non-refundable) There will be an option to pay through a PayPal guest account when booking. If problems arise you can pay through Venmo or Cashapp, but your appointment will not be confirmed until I receive payment. The $10 you pay will be deducted from what you owe when you get your nails done, so it will not be an extra $10 charge on top of your service. You must cancel or reschedule your appointment at least 48hrs in advance or else your deposit will be forfeited. This system will be put in place to protect me from cancellations as I will be in college and time is very valuable.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is there a late fee?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Upon being late by 20 minutes to an appointment I will incur a $5 fee on top of your service fee. I am not the most punctual person and I know things happen, but anything later than 20 minutes will incur a $5 fee.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I book an appointment outside of the offered hours?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">If booking an appointment before or after my offered hours is needed and I am available, I will require a $5 before/after hours fee unless specified otherwise. I love to do nails and always want to work with everyone, but again I will be in college so my time is very valuable.</div></div>
         </div>
 
       </div>
@@ -1647,6 +1701,7 @@
   /* ── HERO PARALLAX ── */
   const heroContentEl = document.getElementById('hero-content');
   window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 768) return;
     const s = window.scrollY;
     if (s < window.innerHeight * 1.2) {
       if (heroContentEl) heroContentEl.style.transform = `translateY(${s * 0.22}px)`;
@@ -1664,7 +1719,11 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('[data-anim]').forEach(el => obs.observe(el));
+  if (window.innerWidth > 768) {
+    document.querySelectorAll('[data-anim]').forEach(el => obs.observe(el));
+  } else {
+    document.querySelectorAll('[data-anim]').forEach(el => el.classList.add('in'));
+  }
 
   loadGallery();
 
